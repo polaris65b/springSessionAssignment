@@ -22,7 +22,7 @@ public class AuthService {
         memberRepository.save(member);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public AuthLoginResponseDto login(AuthLoginRequestDto dto) {
         Member member = memberRepository.findByEmail(dto.getEmail()).orElseThrow(
                 () -> new IllegalArgumentException("Member not found")

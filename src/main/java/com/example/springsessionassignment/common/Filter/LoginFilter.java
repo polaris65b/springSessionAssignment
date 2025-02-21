@@ -1,5 +1,6 @@
 package com.example.springsessionassignment.common.Filter;
 
+import com.example.springsessionassignment.common.consts.Const;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -23,7 +24,7 @@ public class LoginFilter implements Filter {
 
         if (!isWhiteList(requestURI)) {
             HttpSession session = httpRequest.getSession(false);
-            if (session == null || session.getAttribute("LOGIN_USER") == null) {
+            if (session == null || session.getAttribute(Const.LOGIN_MEMBER) == null) {
                 httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, "need login");
                 return;
             }
