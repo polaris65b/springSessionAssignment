@@ -1,8 +1,6 @@
 package com.example.springsessionassignment.member.service;
 
 import com.example.springsessionassignment.member.dto.MemberResponseDto;
-import com.example.springsessionassignment.member.dto.MemberSaveRequestDto;
-import com.example.springsessionassignment.member.dto.MemberSaveResponseDto;
 import com.example.springsessionassignment.member.dto.MemberUpdateRequestDto;
 import com.example.springsessionassignment.member.entity.Member;
 import com.example.springsessionassignment.member.repository.MemberRepository;
@@ -17,17 +15,6 @@ import java.util.List;
 public class MemberService {
 
     private final MemberRepository memberRepository;
-
-    @Transactional
-    public MemberSaveResponseDto save(MemberSaveRequestDto dto) {
-        Member member = new Member(dto.getEmail());
-        Member savedMember = memberRepository.save(member);
-
-        return new MemberSaveResponseDto(
-                savedMember.getId(),
-                savedMember.getEmail()
-        );
-    }
 
     @Transactional(readOnly = true)
     public List<MemberResponseDto> findAll() {
@@ -48,7 +35,8 @@ public class MemberService {
 
         return new MemberResponseDto(
                 member.getId(),
-                member.getEmail());
+                member.getEmail()
+        );
     }
 
     @Transactional
@@ -60,7 +48,7 @@ public class MemberService {
     }
 
     @Transactional
-    public void delete(Long memberId) {
+    public void deleteById(Long memberId) {
         if (!memberRepository.existsById(memberId)) {
             throw new RuntimeException("Member not found");
         }
